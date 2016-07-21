@@ -22,13 +22,12 @@ import com.google.common.base.Verify;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
-import java.util.List;
-
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Types;
+import java.util.List;
 
 /**
  * A wrapper for properties of Optional-like classes. This can be com.google.common.base.Optional,
@@ -61,7 +60,7 @@ public class Optionalish {
    *     the imports that will be present. Usually this will be {@code Optional},
    *     {@code OptionalInt}, etc. In cases of ambiguity it might be {@code java.util.Optional} etc.
    */
-  static Optionalish createIfOptional(TypeMirror type, String rawTypeSpelling) {
+  public static Optionalish createIfOptional(TypeMirror type, String rawTypeSpelling) {
     if (isOptional(type)) {
       return new Optionalish(
           MoreTypes.asDeclared(type), Preconditions.checkNotNull(rawTypeSpelling));
@@ -70,7 +69,7 @@ public class Optionalish {
     }
   }
 
-  static boolean isOptional(TypeMirror type) {
+  public static boolean isOptional(TypeMirror type) {
     if (type.getKind() != TypeKind.DECLARED) {
       return false;
     }
@@ -105,7 +104,7 @@ public class Optionalish {
     return rawTypeSpelling + empty;
   }
 
-  TypeMirror getContainedType(Types typeUtils) {
+  public TypeMirror getContainedType(Types typeUtils) {
     List<? extends TypeMirror> typeArguments = optionalType.getTypeArguments();
     switch (typeArguments.size()) {
       case 1:
