@@ -1,0 +1,5 @@
+jdk:
+    - oraclejdk8
+install:
+    - echo "Running a custom install command"
+    - mvn -B -U -f build-pom.xml clean install --fail-never -DskipTests=true
